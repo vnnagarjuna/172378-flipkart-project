@@ -1,23 +1,28 @@
 package com.sampleflipkart;
 
 import java.io.IOException;
+import java.io.PrintWriter;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-/**
- * Servlet implementation class SampleFlipkatServlet
- */
-@WebServlet("/SampleFlipkatServlet")
-public class SampleFlipkatServlet extends HttpServlet {
-	private static final long serialVersionUID = 1L;
+import com.org.connection.ClassDao;
 
+/**
+ * Servlet implementation class LoginnServlet
+ */
+@WebServlet("/LoginnServlet")
+public class LoginnServlet extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+       
     /**
-     * Default constructor. 
+     * @see HttpServlet#HttpServlet()
      */
-    public SampleFlipkatServlet() {
+    public LoginnServlet() {
+        super();
         // TODO Auto-generated constructor stub
     }
 
@@ -34,7 +39,20 @@ public class SampleFlipkatServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		//doGet(request, response);
+		doGet(request, response);
+		String uemail=request.getParameter("uname");
+		String upassword=request.getParameter("pass");
+		ClassDao userdao_Object=new ClassDao(); 
+	       boolean status=true;
+	     status= userdao_Object.validate(uemail,upassword);
+		
+		 PrintWriter out=response.getWriter();
+		if(status==true)
+		{
+			
+			response.sendRedirect("loginn.jsp");
+			
+		}
 		
 	}
 
